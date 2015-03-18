@@ -11,7 +11,7 @@ class ApiProjectController extends \BaseController {
 	{
 		$projects = Project::all();
 
-		Response::json(array('error' => 'false', 'projects' => $projects->toArray()), 200);
+		Response::json(array('projects' => $projects->toArray()));
 
 	}
 
@@ -29,7 +29,7 @@ class ApiProjectController extends \BaseController {
 	{
 		$project = Project::find($id);
 
-		Response::json(array('error' => 'false', 'project' => $project->toArray()), 200);
+		Response::json(array('project' => $project->toArray()));
 	}
 
 

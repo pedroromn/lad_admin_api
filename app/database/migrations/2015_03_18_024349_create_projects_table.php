@@ -20,7 +20,7 @@ class CreateProjectsTable extends Migration {
             $table->string('direction'); // director o directores
             $table->string('description'); // descripción cortica
             $table->string('format')->nullable(); // formato
-            $table->string('length'); // tiempo de duración
+            $table->string('length')->nullable(); // tiempo de duración
             $table->string('state')->nullable(); // estado del proyecto: finalizado, en proceso 
             $table->string('link')->nullable(); // link a un video de trailer o cortometraje
             $table->string('image')->nullable(); // imagen para mostrar en la vista de detalle del proyecto

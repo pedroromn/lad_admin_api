@@ -61,7 +61,6 @@ class ProjectAppSeeder extends Seeder{
 			'direction' => 'Mauricio García Matamoros',
 			'description' => 'Largometraje de animación',
 			'format' => 'HD',
-			'length' => 'en desarrollo',
 			'state' => 'en desarrollo'
 		));
 
