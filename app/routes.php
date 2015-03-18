@@ -15,3 +15,9 @@ Route::get('/', function()
 {
 	return View::make('hello');
 });
+
+Route::resource('project', 'ProjectController');
+
+
+Route::get('projects', 'ApiProjectController@index');
+Route::get('projects/{id}', 'ApiProjectController@show');
