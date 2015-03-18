@@ -2,38 +2,29 @@
 
 class ApiProjectController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 *
-	 * @return Response
-	 */
 	public function index()
 	{
+
 		$projects = Project::all();
 
-		Response::json(array('projects' => $projects->toArray()));
+
+        return Response::json(array('projects' => $projects), 200);
 
 	}
 
 
-	
 
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
 	public function show($id)
 	{
-		$project = Project::find($id);
 
-		Response::json(array('project' => $project->toArray()));
+        $project = Project::find($id);
+
+        return Response::json(array('project' => $project), 200);
+
 	}
 
 
-	
+
 
 
 }

@@ -9,7 +9,9 @@ class ProjectController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+        $projects = Project::all();
+
+        return View::make('project_list')->with('projects', $projects);
 	}
 
 
@@ -43,7 +45,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+        $project = Project::find($d);
 	}
 
 
@@ -55,7 +57,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-		//
+        $project = Project::find($d);
 	}
 
 
@@ -67,7 +69,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+        $project = Project::find($d);
 	}
 
 
@@ -79,7 +81,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+        $project = Project::find($d);
 	}
 
 
