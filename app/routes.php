@@ -1,23 +1,18 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the Closure to execute when that URI is requested.
-|
-*/
+Route::get('login', 'AuthController@getLogin');
+Route::post('login', 'AuthController@postLogin');
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::group(array('before' => 'auth'), function() {
+    // Esta será nuestra ruta de bienvenida.
+    Route::get('/', function() {
+        return View::make('project_list');
+    });
+    Route::get('logout', 'AuthController@getLogout');
+    Route::resource('project', 'ProjectController');
 });
-
-Route::resource('project', 'ProjectController');
-
-
-Route::get('projects', 'ApiProjectController@index');
-Route::get('projects/{id}', 'ApiProjectController@show');
+//API
+Route::group(array('prefix' => 'api'), function(){
+        Route::get('projects', 'ApiProjectController@index');
+        Route::get('projects/{id}', 'ApiProjectController@show');
+});
