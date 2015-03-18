@@ -9,7 +9,10 @@ class ApiProjectController extends \BaseController {
 	 */
 	public function index()
 	{
-		//
+		$projects = Project::all();
+
+		Response::json(array('error' => 'false', 'projects' => $projects->toArray()), 200);
+
 	}
 
 
@@ -24,7 +27,9 @@ class ApiProjectController extends \BaseController {
 	 */
 	public function show($id)
 	{
-		//
+		$project = Project::find($id);
+
+		Response::json(array('error' => 'false', 'project' => $project->toArray()), 200);
 	}
 
 

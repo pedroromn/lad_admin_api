@@ -16,27 +16,4 @@ class Project extends Eloquent implements UserInterface, RemindableInterface {
      */
     protected $table = 'projects';
 
-
-    public function postCreateProject(){
-
-    }
-
-
-    public function postUpdateProject($id){
-
-    }
-
-    public function postDeleteProject($id){
-
-    }
-
-
-    public function getAllProjects(){
-
-    }
-
-    public function getProjectById($id){
-
-    }
-
 }
