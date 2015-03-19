@@ -3,13 +3,7 @@
 class AuthController extends BaseController {
 
     public function getLogin() {
-        // Verificamos que el usuario no esté autenticado
-        if (Auth::check()) {
-            // Si está autenticado lo mandamos a la raíz donde estara el mensaje de bienvenida.
-            return Redirect::to('/');
-        }
-        // Mostramos la vista login.blade.php (Recordemos que .blade.php se omite.)
-        return View::make('login');
+        return View::make('Auth.login');
     }
 
     public function postLogin() {
@@ -17,11 +11,12 @@ class AuthController extends BaseController {
             'email' => 'required',
             'password' => 'required'
         );
+
         $validator = Validator::make(Input::all(), $rules);
 
         // process the login
         if ($validator->fails()) {
-            return Redirect::to('login') ->with('error_msg', 'Tus datos no son válidos')->withInput();
+            return Redirect::to('') ->with('error_msg', 'Tus datos no son válidos')->withInput();
         }
         else
         {
@@ -32,16 +27,22 @@ class AuthController extends BaseController {
             );
             // Validamos los datos y además mandamos como un segundo parámetro la opción de recordar el usuario.
             if (Auth::attempt($userdata)) {
-                return Redirect::to('/');
+                return Redirect::to('dashboard');
             }
             // En caso de que la autenticación haya fallado manda un mensaje al formulario de login y también regresamos los valores enviados con withInput().
-            return Redirect::to('login')
-                ->with('error_msg', 'Tus datos son incorrectos') ->withInput(Input::except('password'));
+            return Redirect::to('')
+                ->with('error_msg', 'Sus datos son incorrectos') ->withInput(Input::except('password'));
         }
     }
 
     public function getLogout() {
         Auth::logout();
-        return Redirect::to('login')->with('msg', 'Ha cerrado sesion!');
+        return Redirect::to('')->with('msg', 'Sesión finalizada');
+    }
+
+
+    public function getDashboard(){
+        $user = Auth::user();
+        return View::make('Auth.dashboard', array('user' => $user));
     }
 }
