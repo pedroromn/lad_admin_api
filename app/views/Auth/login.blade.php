@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Interfaz de Administrador</title>
+    <title>Plataforma de Administrador</title>
 
     <!-- Bootstrap Core CSS -->
     {{ HTML::style('css/bootstrap.min.css') }}  
