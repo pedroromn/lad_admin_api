@@ -5,6 +5,7 @@
 // Vista Auth.login : inicio del sistema
 Route::get('/', 'AuthController@getLogin'); // home
 Route::post('login', 'AuthController@postLogin'); // ruta para procesar el inicio de sesión
+Route::get('about', 'AuthController@getAbout'); // vista del acerca de
 
 
 
@@ -12,28 +13,28 @@ Route::post('login', 'AuthController@postLogin'); // ruta para procesar el inici
 Route::group(array('before' => 'auth'), function() {
 
 
-	Route::get('dashboard', 'AuthController@getDashboard');
-
-
-
-    Route::get('projects', 'ProjectController@index');
     Route::get('logout', 'AuthController@getLogout');
+
+    Route::post('projects/destroy', 'ProjectController@postDestroy');
+
+
     Route::resource('project', 'ProjectController');
+    /*
+
+    GET         /project                    index        project.index         lista de proyectos
+    GET         /project/create             create       project.create        vista del formulario para crear un proyecto
+    POST        /project                    store        project.store         proceso de crear un proyecto
+    GET         /project/{project}          show         project.show          vista de detalle de un proyecto
+    GET         /project/{project}/edit     edit         project.edit          vista del formulario de edición de un proyecto    
+    PUT/PATCH   /project/{project}          update       project.update        proceso de edición de un proyecto
+    DELETE      /project/{project}          destroy      project.destroy       eliminación de un proyecto
+
+
+    */
+
+  
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

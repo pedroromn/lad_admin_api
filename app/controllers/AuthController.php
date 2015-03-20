@@ -27,7 +27,13 @@ class AuthController extends BaseController {
             );
             // Validamos los datos y además mandamos como un segundo parámetro la opción de recordar el usuario.
             if (Auth::attempt($userdata)) {
-                return Redirect::to('dashboard');
+                
+                $user = Auth::user();
+                $user->last_access = new DateTime();
+                $user->save();
+
+                return Redirect::to('project');
+                
             }
             // En caso de que la autenticación haya fallado manda un mensaje al formulario de login y también regresamos los valores enviados con withInput().
             return Redirect::to('')
@@ -41,8 +47,13 @@ class AuthController extends BaseController {
     }
 
 
-    public function getDashboard(){
+    
+
+    public function getAbout(){
+
         $user = Auth::user();
-        return View::make('Auth.dashboard', array('user' => $user));
+
+        return View::make('About.about', array('user' => $user));
+
     }
 }

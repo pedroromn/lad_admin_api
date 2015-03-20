@@ -10,8 +10,8 @@ class ProjectController extends \BaseController {
 	public function index()
 	{
         $projects = Project::all();
-
-        return View::make('project_list')->with('projects', $projects);
+        $user = Auth::user();
+		return View::make('project.index', array('projects' => $projects, 'user' => $user));
 	}
 
 
@@ -22,7 +22,8 @@ class ProjectController extends \BaseController {
 	 */
 	public function create()
 	{
-		//
+		$user = Auth::user();
+		return View::make('project.create', array('user' => $user));
 	}
 
 
@@ -45,7 +46,9 @@ class ProjectController extends \BaseController {
 	 */
 	public function show($id)
 	{
-        $project = Project::find($d);
+        $project = Project::find($id);
+        $user = Auth::user();
+        return View::make('project.show', array('user' => $user, 'project' => $project));
 	}
 
 
@@ -57,7 +60,9 @@ class ProjectController extends \BaseController {
 	 */
 	public function edit($id)
 	{
-        $project = Project::find($d);
+        $project = Project::find($id);
+        $user = Auth::user();
+        return View::make('project.edit', array('user' => $user, 'project' => $project));
 	}
 
 
@@ -69,7 +74,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function update($id)
 	{
-        $project = Project::find($d);
+        $project = Project::find($id);
 	}
 
 
@@ -79,9 +84,13 @@ class ProjectController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+	public function postDestroy()
 	{
-        $project = Project::find($d);
+		$id = Input::get('project_id');
+        $project = Project::find($id);
+        $project->delete();
+
+        return Redirect::to('project')->with('msg', 'Proyecto eliminado de la base de datos correctamente');
 	}
 
 

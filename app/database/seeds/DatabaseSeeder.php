@@ -35,7 +35,6 @@ class ProjectAppSeeder extends Seeder{
 			'state' => 'finalizado',
 			'link' => 'http://vimeo.com/102566945',
 			'image' => '/public/img/images/controlz-image.jpg',
-			'picture' => '/public/img/pictures/controlz-picture.jpg',
 			'synopsis' => 'Esta historia se desarrolla en una ciudad antigua al lado del mar en la que vive Adolfo, joven fotógrafo, serio y analítico enamorado de ese lugar y de Iris, una chica descomplicada y dulce que para su vida es como la brisa refrescante. Ambos son testigos de una marcha sin descanso, se puede percibir en el ambiente toda su impotencia y desesperanza que para un sujeto de guantes blancos es la excusa perfecta. Este sujeto, líder y autoridad, reparte a los ciudadanos una pastilla llamada Control Z para borrar sus malos recuerdos y brindarles una nueva vida, paz y seguridad a sus corazones dolidos... ¿Si pudieras borrar de tu mente los malos recuerdos, lo harías?'
 
 		));
@@ -50,7 +49,6 @@ class ProjectAppSeeder extends Seeder{
 			'state' => 'finalizado',
 			'link' => ' http://vimeo.com/52698662',
 			'image' => '/public/img/images/ojos-image.jpg',
-			'picture' => '/public/img/pictures/ojos-picture.jpg',
 			'synopsis' => 'Una paloma ciega, un hombre sin caminos y un oportunista'
 
 		));
@@ -79,11 +77,12 @@ class ProjectAppSeeder extends Seeder{
 
 		User::create(array(
 
-			'name' => 'test_name',
-			'lastname' => 'test_lastname',
-			'email' => 'test@example.com',
-			'password' => Hash::make('abc123')
+			'name' => 'Admin',
+			'lastname' => 'App Móvil',
+			'email' => 'lad@lad.com.co',
+			'password' => Hash::make('lad123')
 		));
+
 
 		$this->command->info('The admin is ready!');
 

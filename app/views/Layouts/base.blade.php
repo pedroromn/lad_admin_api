@@ -42,8 +42,6 @@
 
 <div id="wrapper">
 
-    
-
     @section('borde')
 
     @show

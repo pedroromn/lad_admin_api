@@ -23,10 +23,10 @@ class CreateProjectsTable extends Migration {
             $table->string('length')->nullable(); // tiempo de duración
             $table->string('state')->nullable(); // estado del proyecto: finalizado, en proceso 
             $table->string('link')->nullable(); // link a un video de trailer o cortometraje
-            $table->string('image')->nullable(); // imagen para mostrar en la vista de detalle del proyecto
-            $table->string('picture')->nullable(); // picture que se verá en la lista de proyectos   
+            $table->string('image')->nullable(); // imagen para mostrar en la vista de detalle del proyecto  
             $table->text('synopsis')->nullable(); // sinopsis del proyecto
             $table->timestamps();
+            $table->softDeletes();
 		});
 	}
 
