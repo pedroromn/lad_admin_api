@@ -36,8 +36,6 @@
                                     
                                     <div class="col-lg-6">
 
-
-
                                         <div class="form-group">
                                             {{ Form::label('title', 'Título') }}
                                             {{ Form::text('title', '', array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Título del proyecto')) }}
@@ -52,7 +50,7 @@
 
                                         <div class="form-group">
                                             {{ Form::label('description', 'Descripción') }}
-                                            {{ Form::text('description', '', array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Largometraje | Cortometraje ...')) }}
+                                            {{ Form::text('description', '', array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'Largometraje | Mediometraje | Cortometraje ...')) }}
                                         </div>
 
 
@@ -94,7 +92,7 @@
 
                                         <div class="form-group">
                                             {{ Form::label('image', 'Imagen') }}
-                                            {{ Form::file('image', '', array('class' => 'form-control', 'placeholder' => 'sinopsis ...', 'rows' => 5)) }}
+                                            {{ Form::file('image', '', array('class' => 'form-control')) }}
                                         </div>
 
                                         <div class="form-group">

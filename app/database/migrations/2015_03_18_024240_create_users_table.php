@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration {
 			$table->increments('id');
             $table->engine = 'MyISAM';
             $table->string('name'); // nombre del administrado
-            $table->string('lastname'); // apellido
             $table->string('email'); // cuenta de correo
             $table->string('password'); // clave de acceso
             $table->dateTime('last_access');

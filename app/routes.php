@@ -15,7 +15,7 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::get('logout', 'AuthController@getLogout');
 
-    Route::post('projects/destroy', 'ProjectController@postDestroy');
+    Route::post('projects/destroy', 'ProjectController@postDestroy'); // Ruta para procesar el borrado de un proyecto
 
 
     Route::resource('project', 'ProjectController');

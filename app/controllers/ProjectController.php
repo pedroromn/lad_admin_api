@@ -34,7 +34,7 @@ class ProjectController extends \BaseController {
 	 */
 	public function store()
 	{
-		$image = Input::file('image');
+		//$image = Input::file('image');
 
 		$rules = array(
 			'title' => 'required',
@@ -64,63 +64,54 @@ class ProjectController extends \BaseController {
 						->with('error_msg', 'Datos erróneos!!');
 		}else{
 
-			if($image->isValid()){
+			if(Input::file('image') != null){
+				// Si viene una imagen
+
+					if(Input::file('image')->isValid()){
 
 
-				$title = Input::get('title');
-				$direction = Input::get('direction');
-				$description = Input::get('description');
-				$format = Input::get('format');
-				$length = Input::get('length');
-				$state = Input::get('state');
-				$link = Input::get('link');
-				$synopsis = Input::get('synopsis');
-				
-				// HAY QUE CREAR EL CAMPO image y agregarlo a partir de la ruta con el nombre de la imagen generado
+						$project = new Project();
 
-				// El nombre de la imagen será el mismo título del proyecto, sin espacios en blanco y en minúscula.
-
-
-				$destinationPath = public_path().'/img/projects/'; // destino de la imagen
-
-				$extension = $image->getClientOriginalExtension(); // getting image extension
-
-				//$name = $image->getClientOriginalName(); // getting image name
-
-				//$name = explode('.', $name);
-
-				//$prueba = "Ojos";
-
-				$project = new Project();
-
-				$project->title = $title;
-				$project->direction = $direction;
-				$project->description = $description;
-				$project->format = $format;
-				$project->length = $length;
-				$project->state = $state;
-				$project->link = $link;
-				$project->synopsis = $synopsis;
-				$project->save();
+						$project->title = Input::get('title');
+						$project->direction = Input::get('direction');
+						$project->description = Input::get('description');
+						$project->format = Input::get('format');
+						$project->length = Input::get('length');
+						$project->state = Input::get('state');
+						$project->link = Input::get('link');
+						$project->synopsis = Input::get('synopsis');
+						$project->save();
 
 
-				$realName = 'proyecto_'.$project->id.'.'.$extension;
+						$destinationPath = public_path().'/img/projects/';
+						$extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
+						//$name = $image->getClientOriginalName(); // getting image name
+						$realName = 'proyecto_'.$project->id.'.jpg';
 
-				$project = Project::find($project->id);
+						$project = Project::find($project->id);
+						$project->image = 'img/projects/'.$realName;
+						$project->update();
 
-				$project->image = 'img/projects/'.$realName;
-				$project->path = $destinationPath.$realName;
-				$project->update();
+						Input::file('image')->move($destinationPath, $realName);
 
-				Input::file('image')->move($destinationPath, $realName);
+						return Redirect::to('project')->with('msg', 'Nuevo proyecto registrado satisfactoriamente!!');
 
-				return Redirect::to('project')->with('msg', 'Nuevo proyecto registrado satisfactoriamente!!');
+
+					}else{
+
+						return Redirect::to('project/create')
+								->withInput()
+								->with('error_msg', 'Archivo no válido');
+
+					}
 
 			}else{
 
+				// No viene imagen
 				return Redirect::to('project/create')
-						->with('error_msg', 'Archivo no válido');
-
+								->withInput()
+								->with('error_msg', 'Procure establecer una imagen para el proyecto registrado');
+				
 			}
 
 		}
@@ -151,11 +142,19 @@ class ProjectController extends \BaseController {
 	public function edit($id)
 	{
         $project = Project::find($id);
-        $user = Auth::user();
 
+        if(!empty($project)){
 
-        return View::make('project.edit', array('project' => $project,
-                                                   'user'=> $user, 'file' => Input::file(public_path().'/img/projects/'.'proyecto_'.$project->id)));
+        	$user = Auth::user();
+        	return View::make('project.edit', array('project' => $project,
+                                                   'user'=> $user));
+        }else{
+
+        	return Redirect::to('project')
+						->with('error_msg', 'Proyecto no existente');
+
+        }
+        
 	}
 
 
@@ -235,9 +234,9 @@ class ProjectController extends \BaseController {
 					$realName = 'proyecto_'.$project->id.'.'.$extension;
 
 					$project->image = 'img/projects/'.$realName;
-					$project->path = $destinationPath.$realName;
+					//$project->path = $destinationPath.$realName;
 
-					File::delete($project->path);
+					File::delete($destinationPath.$realName);
 					Input::file('image')->move($destinationPath, $realName);
 
 					
@@ -300,11 +299,11 @@ class ProjectController extends \BaseController {
 		$id = Input::get('project_id');
         $project = Project::find($id);
 
-        File::delete($project->path);
+        File::delete(public_path().'/'.$project->image);
 
         $project->delete();
 
-        return Redirect::to('project')->with('msg', 'Proyecto eliminado satisfactoriamente');
+        return Redirect::to('project')->with('msg', 'Proyecto borrado satisfactoriamente');
 	}
 
 

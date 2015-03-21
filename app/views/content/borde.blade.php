@@ -16,15 +16,15 @@
 
             <ul class="nav navbar-top-links navbar-right">
 
-                <li><p><b>{{$user->name. ' '. $user->lastname}}</b></p></li>
+                <li><p><b>{{$user->name}}</b></p></li>
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="{{URL::to('about')}}"><i class="fa fa-user fa-fw"></i>Acerca de</a>
-                        </li>
+                        {{-- <li><a href="{{URL::to('about')}}"><i class="fa fa-user fa-fw"></i>Acerca de</a>
+                        </li> --}}
                         <li class="divider"></li>
                         <li><a href="{{URL::to('logout')}}"><i class="fa fa-sign-out fa-fw"></i> Cerrar sesión</a>
                         </li>
