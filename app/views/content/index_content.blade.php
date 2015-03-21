@@ -58,7 +58,7 @@
 
                                                         <a class="btn btn-small btn-success" href="{{URL::to('project/'. $value->id)}}" title="Ver Detalles"><i class="fa fa-search" ></i></a>
 
-                                                        <a class="btn btn-small btn-info" href="#" title="Modificar" ><i class="fa fa-pencil" ></i></a>
+                                                        <a class="btn btn-small btn-info" href="{{URL::to('project/'.$value->id.'/edit')}}" title="Modificar" ><i class="fa fa-pencil" ></i></a>
                                                         
                                                         <a type="submmit"  data-number="{{$value->id}}" class="btn btn-small btn-danger delete" data-toggle="modal" title="Eliminar"><i class="fa fa-trash-o" ></i></a> 
 
