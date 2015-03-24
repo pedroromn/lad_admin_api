@@ -5,7 +5,7 @@
 // Vista Auth.login : inicio del sistema
 Route::get('/', 'AuthController@getLogin'); // home
 Route::post('login', 'AuthController@postLogin'); // ruta para procesar el inicio de sesión
-Route::get('about', 'AuthController@getAbout'); // vista del acerca de
+//Route::get('about', 'AuthController@getAbout'); // vista del acerca de
 
 
 
@@ -43,4 +43,5 @@ Route::group(array('before' => 'auth'), function() {
 Route::group(array('prefix' => 'api'), function(){
         Route::get('projects', 'ApiProjectController@index');
         Route::get('projects/{id}', 'ApiProjectController@show');
+        Route::get('projects/{id}/images', 'ApiProjectController@images');
 });

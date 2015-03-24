@@ -12,6 +12,7 @@ class Project extends Eloquent implements UserInterface, RemindableInterface {
 
     protected $dates = ['deleted_at'];
 
+
     /**
      * The database table used by the model.
      *

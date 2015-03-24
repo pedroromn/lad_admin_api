@@ -69,7 +69,6 @@ class ProjectController extends \BaseController {
 
 					if(Input::file('image')->isValid()){
 
-
 						$project = new Project();
 
 						$project->title = Input::get('title');
@@ -82,17 +81,81 @@ class ProjectController extends \BaseController {
 						$project->synopsis = Input::get('synopsis');
 						$project->save();
 
+						$imagenes = array();
+
+						if(Input::file('slide1') != null){
+							array_push($imagenes, Input::file('slide1'));
+						}
+
+						if(Input::file('slide2') != null){
+							array_push($imagenes, Input::file('slide2'));
+						}
+
+						if(Input::file('slide3') != null){
+							array_push($imagenes, Input::file('slide3'));
+						}
+
+						if(Input::file('slide4') != null){
+							array_push($imagenes, Input::file('slide4'));
+						}
+
+						if(empty($imagenes)){
+
+							return Redirect::to('project/create')
+								->withInput()
+								->with('error_msg', 'Al menos una imagen para el slide de la aplicación debe ser agregada');
+
+						}
 
 						$destinationPath = public_path().'/img/projects/';
 						$extension = Input::file('image')->getClientOriginalExtension(); // getting image extension
-						//$name = $image->getClientOriginalName(); // getting image name
-						$realName = 'proyecto_'.$project->id.'.jpg';
+
+						$realName = 'proyecto_'.$project->id.'.'.$extension;
+
 
 						$project = Project::find($project->id);
+
+						for ($i=0; $i < count($imagenes); $i++) { 
+							# code...
+
+							$ext = $imagenes[$i]->getClientOriginalExtension();
+							$name = $project->id.'_'.($i+1).'.'.$ext;
+
+							if($i+1 == 1){
+								$project->slide1 = 'img/projects/'.$name;
+							}
+
+							if($i+1 == 2){
+								$project->slide2 = 'img/projects/'.$name;
+							}
+
+							if($i+1 == 3){
+								$project->slide3 = 'img/projects/'.$name;
+							}
+
+							if($i+1 == 4){
+								$project->slide4 = 'img/projects/'.$name;
+							}
+
+							$imagenes[$i]->move($destinationPath, $name);
+
+						}
+
 						$project->image = 'img/projects/'.$realName;
+						Input::file('image')->move($destinationPath, $realName);
+
 						$project->update();
 
-						Input::file('image')->move($destinationPath, $realName);
+						
+						// 
+						// //$name = $image->getClientOriginalName(); // getting image name
+						// $realName = 'proyecto_'.$project->id.'.jpg';
+
+						// $project = Project::find($project->id);
+						// $project->image = 'img/projects/'.$realName;
+						// $project->update();
+
+						// Input::file('image')->move($destinationPath, $realName);
 
 						return Redirect::to('project')->with('msg', 'Nuevo proyecto registrado satisfactoriamente!!');
 
@@ -110,7 +173,7 @@ class ProjectController extends \BaseController {
 				// No viene imagen
 				return Redirect::to('project/create')
 								->withInput()
-								->with('error_msg', 'Procure establecer una imagen para el proyecto registrado');
+								->with('error_msg', 'Procure establecer al menos imagen de portada para el nuevo proyecto ');
 				
 			}
 
@@ -197,91 +260,91 @@ class ProjectController extends \BaseController {
 						->with('error_msg', 'Datos erróneos!!');
 		}else{
 
+			$destinationPath = public_path().'/img/projects/';
+
+			$project = Project::find($id);
 
 			if(Input::file('image') != null){
 
-				if(Input::file('image')->isValid()){
-
-					$image = Input::file('image');
-
-					//echo "ok";
-
-
-					$destinationPath = public_path().'/img/projects/'; // destino de la imagen
-					$extension = $image->getClientOriginalExtension(); // getting image extension
-
-					$title = Input::get('title');
-					$direction = Input::get('direction');
-					$description = Input::get('description');
-					$format = Input::get('format');
-					$length = Input::get('length');
-					$state = Input::get('state');
-					$link = Input::get('link');
-					$synopsis = Input::get('synopsis');
-
-					
-					$project = Project::find($id);
-
-					$project->title = $title;
-					$project->direction = $direction;
-					$project->description = $description;
-					$project->format = $format;
-					$project->length = $length;
-					$project->state = $state;
-					$project->link = $link;
-					$project->synopsis = $synopsis;
-
-					$realName = 'proyecto_'.$project->id.'.'.$extension;
-
-					$project->image = 'img/projects/'.$realName;
-					//$project->path = $destinationPath.$realName;
-
-					File::delete($destinationPath.$realName);
-					Input::file('image')->move($destinationPath, $realName);
-
-					
-					$project->update();
-
-					
-
-					return Redirect::to('project')->with('msg', 'Proyecto modificado satisfactoriamente !!');
-
-				}else{
-
-					return Redirect::to('project/'.$id.'/edit')
-							->with('error_msg', 'Archivo no válido');
-
+				if($project->image != null){
+					File::delete(public_path().'/'.$project->image);
 				}
 
-			}else{
+				$extension = Input::file('image')->getClientOriginalExtension();
+				$name_image = 'proyecto_'.$project->id.'.'.$extension;
+				$project->image = 'img/projects/'.$name_image;
 
-				//echo "NOT";
+				Input::file('image')->move($destinationPath, $name_image);
+			}
 
-					$title = Input::get('title');
-					$direction = Input::get('direction');
-					$description = Input::get('description');
-					$format = Input::get('format');
-					$length = Input::get('length');
-					$state = Input::get('state');
-					$link = Input::get('link');
-					$synopsis = Input::get('synopsis');
+			if(Input::file('slide1') != null){
 
-					
-					$project = Project::find($id);
-					$project->title = $title;
-					$project->direction = $direction;
-					$project->description = $description;
-					$project->format = $format;
-					$project->length = $length;
-					$project->state = $state;
-					$project->link = $link;
-					$project->synopsis = $synopsis;
+				if($project->slide1 != null){
+					File::delete(public_path().'/'.$project->slide1);
+				}
 
-					$project->update();
+				$extension = Input::file('slide1')->getClientOriginalExtension();
+				$name = $project->id.'_1'.'.'.$extension;
+				$project->slide1 = 'img/projects/'.$name;
 
-					return Redirect::to('project')->with('msg', 'Proyecto modificado satisfactoriamente !!');
+				Input::file('slide1')->move($destinationPath, $name);
 
 			}
+
+			if(Input::file('slide2') != null){
+
+				if($project->slide2 != null){
+					File::delete(public_path().'/'.$project->slide2);
+				}
+
+				$extension = Input::file('slide2')->getClientOriginalExtension();
+				$name = $project->id.'_2'.'.'.$extension;
+				$project->slide2 = 'img/projects/'.$name;
+
+				Input::file('slide2')->move($destinationPath, $name);
+
+			}
+
+			if(Input::file('slide3') != null){
+
+				if($project->slide3 != null){
+					File::delete(public_path().'/'.$project->slide3);
+				}
+
+				$extension = Input::file('slide3')->getClientOriginalExtension();
+				$name = $project->id.'_3'.'.'.$extension;
+				$project->slide3 = 'img/projects/'.$name;
+
+				Input::file('slide3')->move($destinationPath, $name);
+
+			}
+
+			if(Input::file('slide4') != null){
+
+				if($project->slide4 != null){
+					File::delete(public_path().'/'.$project->slide4);
+				}
+
+				$extension = Input::file('slide4')->getClientOriginalExtension();
+				$name = $project->id.'_4'.'.'.$extension;
+				$project->slide4 = 'img/projects/'.$name;
+
+				Input::file('slide4')->move($destinationPath, $name);
+
+			}
+
+			$project->title = Input::get('title');
+            $project->direction = Input::get('direction');
+            $project->description = Input::get('description');
+            $project->format = Input::get('format');
+            $project->length = Input::get('length');
+            $project->state = Input::get('state');
+            $project->link = Input::get('link');
+            $project->synopsis = Input::get('synopsis');
+
+            $project->update();
+
+            return Redirect::to('project')->with('msg', 'Proyecto modificado satisfactoriamente !!');
 
 		}
 
@@ -299,7 +362,26 @@ class ProjectController extends \BaseController {
 		$id = Input::get('project_id');
         $project = Project::find($id);
 
-        File::delete(public_path().'/'.$project->image);
+        if($project->image != null){
+        	File::delete(public_path().'/'.$project->image);
+        }
+
+        if($project->slide1 != null){
+        	File::delete(public_path().'/'.$project->slide1);
+        }
+
+        if($project->slide2 != null){
+        	File::delete(public_path().'/'.$project->slide2);
+        }
+
+        if($project->slide3 != null){
+        	File::delete(public_path().'/'.$project->slide3);
+        }
+
+        if($project->slide4 != null){
+        	File::delete(public_path().'/'.$project->slide4);
+        }
+        
 
         $project->delete();
 

@@ -72,6 +72,11 @@
                                             {{ Form::text('length', '', array('class' => 'form-control', 'placeholder' => 'XX:YY minutos')) }}
                                         </div>
 
+                                        <div class="form-group">
+                                            {{ Form::label('link', 'Enlace de Trailer') }}
+                                            {{ Form::text('link', '', array('class' => 'form-control', 'placeholder' => 'http:// ....')) }}
+                                        </div>
+
 
                                     </div> 
 
@@ -79,25 +84,55 @@
                                     <div class="col-lg-6">
 
                                         <div class="form-group">
-                                            {{ Form::label('link', 'Enlace de Trailer') }}
-                                            {{ Form::text('link', '', array('class' => 'form-control', 'placeholder' => 'http:// ....')) }}
-                                        </div>
-
-
-                                        <div class="form-group">
                                             {{ Form::label('synopsis', 'Sinopsis') }}
                                             {{ Form::textarea('synopsis', '', array('class' => 'form-control', 'required' => 'required', 'placeholder' => 'sinopsis ...', 'rows' => 10)) }}
                                         </div>
 
+                                        <div class="row">
 
-                                        <div class="form-group">
-                                            {{ Form::label('image', 'Imagen') }}
-                                            {{ Form::file('image', '', array('class' => 'form-control')) }}
-                                        </div>
+                                            <div class="col-lg-6">
 
-                                        <div class="form-group">
-                                            {{ Form::submit('Enviar', array('class' => 'btn btn-primary')) }}
-                                        </div>    
+                                                <div class="form-group">
+                                                    {{ Form::label('image', 'Imagen') }}
+                                                    {{ Form::file('image', '', array('class' => 'form-control')) }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {{ Form::label('slide2', 'Imagen Slide 2') }}
+                                                    {{ Form::file('slide2', '', array('class' => 'form-control')) }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {{ Form::label('slide4', 'Imagen Slide 4') }}
+                                                    {{ Form::file('slide4', '', array('class' => 'form-control')) }}
+                                                </div>
+
+                                                <br>
+
+                                                 <div class="form-group">
+                                                    {{ Form::submit('Enviar', array('class' => 'btn btn-primary')) }}
+                                                </div> 
+                                            </div>
+                                            
+                                            <div class="col-lg-6">    
+
+                                                <div class="form-group">
+                                                    {{ Form::label('slide1', 'Imagen Slide 1') }}
+                                                    {{ Form::file('slide1', '', array('class' => 'form-control')) }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    {{ Form::label('slide3', 'Imagen Slide 3') }}
+                                                    {{ Form::file('slide3', '', array('class' => 'form-control')) }}
+                                                </div>
+
+                                            
+                                            </div>
+                                            
+                                        </div>  
+
+
+                                         
 
                                     </div>   
 

@@ -56,16 +56,70 @@
 
                                 <div class="tab-pane fade" id="messages">
 
-                                    <br>
+                                    <div class="row">
 
-                                    <p style="display: inline;"> <h4>Trailer: <a href="{{$project->link}}" title="trailer" target="_blank"> {{$project->link}}</a></h4></p>
+                                        <div class="col-lg-6">
 
-                                    <p style="display: inline;"> <h4>Ruta de imagen: {{$project->image}}</h4> </p>
-                                    @if($project->image != null)
-                                        {{ HTML::image($project->image, '', array( 'width' => 570, 'height' => 300) ) }}
-                                    @else
-                                          {{ HTML::image('img/projects/notimage.jpg', '', array( 'width' => 570, 'height' => 300) ) }}  
-                                    @endif
+
+                                            <br>
+
+                                            <p style="display: inline;"> <h4>Trailer: <a href="{{$project->link}}" title="trailer" target="_blank"> {{$project->link}}</a></h4></p>
+
+                                            <p style="display: inline;"> <h4>Ruta de imagen: {{$project->image}}</h4> </p>
+                                            @if($project->image != null)
+                                                {{ HTML::image($project->image, '', array( 'width' => 570, 'height' => 300, 'title' => $project->image) ) }}
+                                            @else
+                                                  {{ HTML::image('img/projects/notimage.jpg', '', array( 'width' => 570, 'height' => 300) ) }}  
+                                            @endif
+
+                                            <br><br>
+
+                                        </div>
+                                        
+                                    </div>
+
+
+
+                                    <div class="row">
+
+                                        <div class="col-lg-3">
+
+                                            @if($project->image != null)
+                                                {{ HTML::image($project->slide1, '', array( 'width' => 300, 'height' => 180, 'title' => $project->slide1) ) }}
+                                            @else
+                                                  {{ HTML::image('img/projects/notimage.jpg', '', array( 'width' => 300, 'height' => 180) ) }}  
+                                            @endif
+
+                                            @if($project->slide3 != null)
+                                                {{ HTML::image($project->slide3, '', array( 'width' => 300, 'height' => 180, 'title' => $project->slide3) ) }}
+                                            @else
+                                                  {{ HTML::image('img/projects/notimage.jpg', '', array( 'width' => 300, 'height' => 180) ) }}  
+                                            @endif
+
+                                            
+
+                                        </div>
+
+                                        <div class="col-lg-3">
+                                            @if($project->slide2 != null)
+                                                {{ HTML::image($project->slide2, '', array( 'width' => 300, 'height' => 180, 'title' => $project->slide2) ) }}
+                                            @else
+                                                  {{ HTML::image('img/projects/notimage.jpg', '', array( 'width' => 300, 'height' => 180) ) }}  
+                                            @endif
+
+                                            
+
+                                            @if($project->slide4 != null)
+                                                {{ HTML::image($project->slide4, '', array( 'width' => 300, 'height' => 180, 'title' => $project->slide4) ) }}
+                                            @else
+                                                  {{ HTML::image('img/projects/notimage.jpg', '', array( 'width' => 300, 'height' => 180) ) }}  
+                                            @endif
+
+                                        </div>
+
+
+                                        
+                                    </div>
 
                                     
                                 </div>
