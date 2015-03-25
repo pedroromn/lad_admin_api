@@ -56,7 +56,7 @@ class ProjectAppSeeder extends Seeder{
 			'format' => 'HD',
 			'length' => '7:05',
 			'state' => 'finalizado',
-			'link' => ' http://vimeo.com/52698662',
+			'link' => 'http://vimeo.com/52698662',
 			'image' => 'img/projects/proyecto_2.png',
 			'slide1' => 'img/projects/OAB_1.png',
 			'slide2' => 'img/projects/OAB_2.png',

@@ -49,7 +49,7 @@
                                     <a href="{{URL::to('/project')}}">Lista de Proyectos</a>
                                 </li>
                                 <li>
-                                    <a href="{{URL::to('/project/create')}}">Crear Proyecto</a>
+                                    <a href="{{URL::to('/project/create')}}">Agregar Proyecto</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
